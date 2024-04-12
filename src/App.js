@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import Typed from "typed.js";
 
 function App() {
   // State to manage the theme, default to 'light'
@@ -19,6 +20,18 @@ function App() {
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const typed = new Typed(".typedText", {
+      strings: ["Full Stack Developer", "Mobile App Developer"],
+      typeSpeed: 100,
+      backSpeed: 80,
+      loop: true
+    });
+
+    return () => typed.destroy(); // Cleanup on component unmount
+  }, []);
+
 
   return (
     <div className="flex h-full w-100vw flex-col" data-theme={theme}>
@@ -82,7 +95,7 @@ function App() {
             </span>
             <div className="mb-5 text-5xl font-bold">
               Hello, I'm a{" "}
-              <span className="text-teal-700">Full Stack Developer</span>
+              <span className="text-teal-700 typedText"></span>
             </div>
             <p className="mb-5 text-xl">
               {" "}
