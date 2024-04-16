@@ -15,6 +15,12 @@ function App() {
   const aboutRef = useRef(null);
   const projectRef = useRef(null);
   const contactRef = useRef(null);
+  const [offsetY, setOffsetY] = useState(0);
+  const handleScroll = () => {
+    requestAnimationFrame(() => {
+      setOffsetY(window.pageYOffset);
+    });
+  };
 
   // Function to handle smooth scrolling
   const scrollToSection = (ref) => {
@@ -32,13 +38,19 @@ function App() {
     return () => typed.destroy(); // Cleanup on component unmount
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   return (
-    <div className="flex h-full w-100vw flex-col" data-theme={theme}>
-      <div className="navbar justify-between fixed bg-base z-50">
+    <div className="flex p-5 h-full w-100vw flex-col" data-theme={theme}>
+      <div className="navbar justify-between flex bg-base z-50">
         <div className="ml-1">
           <p className="text-5xl font-semibold font-mono text-zinc-600">&lt;/</p>
-          <p className="text-5xl font-semibold font-mono text-teal-600">BM</p>
+          <p className="text-5xl font-semibold font-mono text-teal-700">BM</p>
           <p className="text-5xl font-semibold font-mono text-zinc-600">&gt;</p>
         </div>
         <div className="flex-none">
@@ -88,6 +100,12 @@ function App() {
         </li>
       </div>
       <div className="hero min-h-screen" id="home" ref={homeRef}>
+          <div style={{ transform: `translateY(${offsetY}px)` }} className="flex flex-col place-self-end justify-self-start ml-5 h-auto space-y-5">
+            <a href="https://github.com/BrianMorga"><img src="github.svg" alt="github" className="h-10 w-10" /></a>
+            <a href="https://linkedin.com/in/brianmorga"><img src="linkedin.svg" alt="linkedin" className="h-10 w-10" /></a>
+            <img src="email.svg" alt="twitter" className="h-10 w-10" />
+            <div className="h-56 border-l ml-5 border-gray-400"></div>
+          </div>
         <div className="hero-content">
           <div className="max-w-md">
             <span className="text-3xl font-bold text-orange-500">
@@ -126,9 +144,9 @@ function App() {
           <div>
             <h1 className="text-5xl font-bold" >About Me</h1>
             <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+            As an impending Computer Science graduate with a concentration in Software Development (May 2024), I am excited to embark on my journey into the tech industry. My passion for technology, 
+            fueled by a lifelong interest in video games and computers, has driven me to pivot from a career as a mechanic—a role that honed my problem-solving skills and attention to detail—to the dynamic 
+            and creative field of software development.
             </p>
             <button className="btn btn-primary">Get Started</button>
           </div>
@@ -180,7 +198,7 @@ function App() {
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="contact-name">
             Name
           </label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contact-name" type="text" placeholder="Jane Doe"/>
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contact-name" type="text" placeholder="First and Last"/>
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
