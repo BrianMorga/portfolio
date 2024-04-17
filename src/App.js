@@ -46,8 +46,8 @@ function App() {
 
 
   return (
-    <div className="flex p-5 h-full w-100vw flex-col" data-theme={theme}>
-      <div className="navbar justify-between flex bg-base z-50">
+    <div className="flex h-full w-100vw flex-col" data-theme={theme}>
+      <div className="navbar p-5 justify-between fixed bg-inherit z-50">
         <div className="ml-1">
           <p className="text-5xl font-semibold font-mono text-zinc-600">&lt;/</p>
           <p className="text-5xl font-semibold font-mono text-teal-700">BM</p>
